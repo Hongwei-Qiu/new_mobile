@@ -1,0 +1,201 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		 {
+			"path": "pages/account/login",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		}
+		,{
+			"path": "pages/siji/index/index",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/siji/delivery/delivery",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/siji/order/order",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/siji/path/path",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/siji/user/user",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/caigou/index/index",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/gongying/index/index",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/gongying/stockUp/stockUp",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/gongying/supply/supply",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/gongying/enquiry/enquiry",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/gongying/user/user",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/gongying/user/forget",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/gongying/user/issue",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/gongying/user/refund",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/gongying/user/refundDetail",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/gongying/user/bill",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		}, {
+			"path": "pages/caigou/purchase/purchase",
+			"style": { 
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		}, {
+			"path": "pages/caigou/purchaseNote/purchaseNote",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		}, {
+			"path": "pages/caigou/purchaseNote/detail",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		}, {
+			"path": "pages/caigou/enquiry/enquiry",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/caigou/user/user",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/caigou/user/forget",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/caigou/user/issue",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/caigou/user/refund",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/caigou/user/refundDetail",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},{
+			"path": "pages/caigou/user/bill",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "商城",
+		"navigationBarBackgroundColor": "#ffffff",
+		"backgroundColor": "#F8F8F8"
+	}
+}
