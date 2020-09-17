@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar",
+    "evan-switch": "/components/evan-switch/evan-switch",
+    "w-picker": "/components/w-picker/w-picker"
+  }
+}

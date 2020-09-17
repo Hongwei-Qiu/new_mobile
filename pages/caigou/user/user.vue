@@ -1,5 +1,10 @@
 <template>
 	<view class="caigou_index">
+		<!-- #ifdef APP-PLUS |H5 -->
+		<view class="status_bar">
+			<!-- 这里是状态栏 -->
+		</view>
+		<!-- #endif -->
 		<view class="user">
 			<view class="top flex flex_align_center">
 				<view class="logo">
@@ -86,10 +91,10 @@
 					var that = this;
 					uni.showModal({
 						content: '是否退出登录？',
-						cancelText: "我再想想",
+						cancelText: "取消",
 						cancelColor: "#999",
 						confirmText: "确认",
-						confirmColor: "#DEC17C",
+						confirmColor: '#04A98E',
 						success: function(res) {
 							if (res.confirm) {
 								var timeStamp = Math.round(new Date().getTime() / 1000);
@@ -160,11 +165,11 @@
 			},
 			// h5绑定微信
 			adminisus_weixin() {
-				console.log("H5绑定")
+				
 				var that = this;
 				uni.showModal({
 					content: this.is_bind == 1 ? '是否微信改绑' : '是否绑定微信',
-					cancelText: "我再想想",
+					cancelText: "取消",
 					cancelColor: "#999",
 					confirmText: "确认",
 					confirmColor: "#DEC17C",
@@ -205,16 +210,7 @@
 					rs.getRequests("wxParams", data, (res) => {
 						if (res.data.code == 200) {
 							this.userinfo = res.data.data;
-							wx.config({
-								debug: false, // 开启调试模式
-								appId: res.data.data.appId, // 必填，公众号的唯一标识
-								timestamp: res.data.data.timestamp, // 必填，生成签名的时间戳
-								nonceStr: res.data.data.nonceStr, // 必填，生成签名的随机串
-								signature: res.data.data.signature, // 必填，签名，见附录1
-								jsApiList: [
-									'updateAppMessageShareData', 'onMenuShareAppMessage'
-								] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-							});
+							
 						}
 					})
 				}
@@ -255,9 +251,10 @@
 						setTimeout(function() {
 							uni.clearStorage({
 								success: function(reg) {
-									uni.navigateTo({
-										url: '/pages/account/login'
-									});
+									window.location.href=app.rootUrl+'/Mobile#/pages/caigou/user/user'
+									// uni.navigateTo({
+									// 	url: '/pages/account/login'
+									// });
 								}
 							})
 						}, 1000);

@@ -1,0 +1,80 @@
+
+page {
+	background: #FFFFFF;
+}
+.head {
+	/* position: fixed; */
+
+
+
+
+
+
+
+	left: 0;
+	width: 100%;
+	background: #FFFFFF;
+	z-index: 99;
+}
+.head .inp_box {
+
+
+	background: #ffffff;
+	padding: 15rpx 0;
+}
+.head .inp_box .time {
+	width: 75%;
+	background: #F5F5F5;
+	padding: 15rpx 30rpx;
+	border-radius: 50rpx 0 0 50rpx;
+}
+.head .inp_box .time input {
+	width: 100%;
+	font-size: 28rpx;
+}
+.head .inp_box .btn {
+	background: #03A98E;
+	color: #ffffff;
+	padding: 14rpx 25rpx 14rpx 20rpx;
+	border-radius: 0 50rpx 50rpx 0;
+}
+.head .inp_box .btn .iconfont {
+	font-size: 38rpx;
+}
+.bill .top {
+	font-size: 28rpx;
+	font-weight: 500;
+	padding: 15rpx 20rpx;
+	border-bottom: 10rpx solid #F9F9F9;
+}
+.bill .item {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	padding: 20rpx;
+	font-weight: 400;
+	font-size: 26rpx;
+	/* border-bottom: 1px solid #F0F0F0; */
+}
+.bill .item:nth-last-child(n+3) {
+border-bottom: 1px solid #F0F0F0;
+}
+.fix_top {
+	position: fixed;
+}
+.fix_top .top {
+	font-size: 28rpx;
+	font-weight: 500;
+	padding: 15rpx 20rpx;
+	background: white;
+
+	border-bottom: 10rpx solid #F9F9F9;
+	border-top: 10rpx solid #F9F9F9;
+}
+.caigou_index .show_bitmap {
+	padding-top: 21%;
+}
+

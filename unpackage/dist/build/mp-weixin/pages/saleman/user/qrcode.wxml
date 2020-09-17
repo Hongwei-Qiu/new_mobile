@@ -1,0 +1,1 @@
+<view><uni-nav-bar vue-id="abec4ace-1" left-icon="back" fixed="true" status-bar="{{navBar}}" title="二维码名片" data-event-opts="{{[['^clickLeft',[['goPage']]]]}}" bind:clickLeft="__e" bind:__l="__l"></uni-nav-bar><view class="qr_code"><image src="{{qrCodeInfo.codeUrl}}" mode="aspectFit"></image><view>分享二维码请点击页面右上角</view></view></view>

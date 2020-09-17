@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar",
+    "my-loading": "/components/my-loading/index",
+    "my-bitmap": "/components/my-bitmap/index"
+  }
+}

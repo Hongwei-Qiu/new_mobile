@@ -1,39 +1,39 @@
 <template>
 	<view class="caigou_index">
-		<uni-nav-bar left-icon="back" title="月账单" color="#1A1A1A" @clickLeft="goPage"></uni-nav-bar>
-		<view class="head">
-			<view class="inp_box flex flex_center">
-				<view class="time">
-					<input type="text" v-model="time" placeholder="请选择日期" disabled="true"  @tap="dateVisible1=true"/>
-				</view>
-				<view class="btn" @click="search()">
-					<text class="iconfont iconseach-"></text>
+		<my-apphead></my-apphead>
+		<view class="fix_top">
+			<uni-nav-bar left-icon="back"  title="月账单" color="#1A1A1A" @clickLeft="goPage"></uni-nav-bar>
+			<view style="height:44px;"></view>
+			<view class="head">
+				<view class="inp_box flex flex_center">
+					<view class="time">
+						<input type="text" v-model="time" placeholder="请选择日期" disabled="true" @tap="dateVisible1=true" />
+					</view>
+					<view class="btn" @click="search()">
+						<text class="iconfont iconseach-"></text>
+					</view>
 				</view>
 			</view>
-		</view>
-		<view style="height: 190rpx;background: #F9F9F9;"></view>
-
-		<view class="bill">
 			<view class="top">
 				月采购金额总计(元)：<text class="red_font">¥{{total}}</text>
 			</view>
+		</view>
+<view style="height: calc(44px + 172rpx);"></view>
+
+		<view class="bill" v-if="bitmap">
+
 			<view class="item" v-for="item in list">
 				<view>{{item.order_sn}}</view>
 				<view class="red_font">¥{{item.total_price}}</view>
 			</view>
+			<my-loading :loading="loading"></my-loading>
 		</view>
-		<w-picker
-			:visible.sync="dateVisible1"
-			mode="date" 
-			startYear="2017" 
-			endYear="2029"
-			:value="time"
-			:current="false"
-			fields="month"
-			@confirm="onConfirm($event,'date1')"
-			:disabled-after="false"
-			ref="date1"
-		></w-picker>
+		<view v-else>
+			<my-bitmap></my-bitmap>
+		</view>
+		<w-picker :visible.sync="dateVisible1" mode="date" startYear="2017" endYear="2029" :value="time" :current="false"
+		 fields="month" @confirm="onConfirm($event,'date1')" :disabled-after="false" ref="date1"></w-picker>
+		
 	</view>
 </template>
 
@@ -57,29 +57,37 @@
 		data() {
 			return {
 				navBar: navBar,
-				time:'',
-				dateVisible1:false,
-				total:'',
-				list:[]
+				time: '',
+				dateVisible1: false,
+				total: '',
+				list: [],
+				bitmap: true,
+				loading: true
 			}
 		},
 		methods: {
-			onConfirm(res,type){
-				// this.result=res;
-				// console.log(res)
+			onConfirm(res, type) {
 				this.time = res.value
 			},
 			goPage() {
+				// #ifdef H5
+				window.history.back(-1);
+				// #endif 
+				// #ifndef H5
 				uni.navigateBack({
 					delta: 1
-				})
+				});
+				// #endif	
 			},
-			search(){
-				this.requestBill()
+			search() {
+				this.requestBill();
+				
 			},
 			requestBill() {
 				let that = this;
 				that.list = [];
+				that.bitmap = true;
+				that.loading = true;
 				var timeStamp = Math.round(new Date().getTime() / 1000);
 				var obj = {
 					appid: appid,
@@ -89,26 +97,32 @@
 				var data = {
 					appid: appid,
 					timeStamp: timeStamp,
-					created_at:that.time,
+					created_at: that.time,
 					sign: sign,
 				}
 				rs.getRequests("supplierMonthBill", data, (res) => {
-					// console.log(res.data.data)
 					if (res.data.code == 200) {
 						that.list = res.data.data.data;
+
+						if (res.data.data.data.length == 0) {
+							this.bitmap = false;
+						} else {
+							this.bitmap = true;
+						}
 						that.total = res.data.data.total;
+						that.loading=false;
 					} else {
 						rs.Toast(res.data.msg)
 					}
 				})
 			},
-
-
 		},
-		onLoad(){
+		onLoad() {
 			this.time = un.doHandleDate();
-			this.requestBill()
+			this.requestBill();
+		
 		}
+
 	}
 </script>
 
@@ -118,8 +132,14 @@
 	}
 
 	.head {
-		position: fixed;
+		/* position: fixed; */
+
+		/* #ifdef H5/MP-WEIXIN */
 		top: 80rpx;
+		/* #endif */
+		/* #ifdef APP-PLUS */
+		top: 130rpx;
+		/* #endif */
 		left: 0;
 		width: 100%;
 		background: #FFFFFF;
@@ -175,16 +195,22 @@
 	.bill .item:last-child {
 		border: none;
 	}
+
+	.fix_top {
+		position: fixed;
+	}
+
+	.fix_top .top {
+		font-size: 28rpx;
+		font-weight: 500;
+		padding: 15rpx 20rpx;
+		background: white;
+
+		border-bottom: 10rpx solid #F9F9F9;
+		border-top: 10rpx solid #F9F9F9;
+	}
+
+	.caigou_index .show_bitmap {
+		padding-top: 21%;
+	}
 </style>
-
-
-<!-- <view class="bill">
-	<view class="top">
-		月采购金额总计(元)：<text class="red_font">¥499.30</text>
-	</view>
-	<view class="item">
-		<view>GG2020070300000001</view>
-		<view class="red_font">¥346.80</view>
-	</view>
-</view>
- -->

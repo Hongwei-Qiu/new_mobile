@@ -1,12 +1,13 @@
 <template>
 	<view class="caigou_index">
+		<my-apphead></my-apphead>
 		<view class="purchaseNote">
 			<view class="head">
 				<view class="inp_box flex flex_center">
 					<view class="time">
-						<input type="text" placeholder="请选择日期" v-model="result" disabled="true" @tap="dateVisible1=true"/>
+						<input type="text" placeholder="请选择日期" v-model="result" disabled="true" @tap="dateVisible1=true" />
 					</view>
-					<view class="btn">
+					<view class="btn" @click="requestBuyerList">
 						<text class="iconfont iconseach-"></text>
 					</view>
 				</view>
@@ -17,7 +18,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="list_box">
+			<view class="list_box" v-if="bitmap">
 				<view class="item" v-for="item in itemList" @click="clickTab(item.id)">
 					<view class="title flex flex_align_center flex_between">
 						<view class="left">单号：{{item.order_sn}}</view>
@@ -32,10 +33,14 @@
 						供应商：{{item.supplier_name}}
 					</view>
 				</view>
+				<my-loading :loading="loading"></my-loading>
+			</view>
+			<view v-else>
+				<my-bitmap></my-bitmap>
 			</view>
 		</view>
-		<w-picker :visible.sync="dateVisible1" mode="date" startYear="2017" endYear="2029"
-		 :current="false" fields="day" @confirm="onConfirm($event,'date1')" @cancel="onCancel" :disabled-after="false" ref="date1"></w-picker>
+		<w-picker :visible.sync="dateVisible1" mode="date" startYear="2017" endYear="2029" :current="false" fields="day" :value="time"
+		 @confirm="onConfirm($event,'date1')"  :disabled-after="false" ref="date1"></w-picker>
 		<tabar :tabarIndex="tabNum"></tabar>
 	</view>
 </template>
@@ -59,13 +64,17 @@
 		},
 		data() {
 			return {
+				loading: true,
 				navBar: navBar,
 				tabNum: 2,
 				dateVisible1: false,
 				result: "",
 				isActive: 0,
 				tabId: '',
-				itemList:[],
+				time:'',
+				page: 1,
+				bitmap: true,
+				itemList: [],
 				list: [{
 						tab: "采购中",
 						id: 1
@@ -84,6 +93,9 @@
 		methods: {
 			requestBuyerList() {
 				let that = this;
+				that.page = 1;
+				this.loading = true;
+				this.bitmap = true;
 				that.itemList = [];
 				var timeStamp = Math.round(new Date().getTime() / 1000);
 				var obj = {
@@ -96,13 +108,25 @@
 					timeStamp: timeStamp,
 					status: this.isActive,
 					created_at: this.result,
-					page:1,
+					page: 1,
 					sign: sign,
 				}
 				rs.getRequests("buyerList", data, (res) => {
 					if (res.data.code == 200) {
+
 						that.itemList = res.data.data;
-						console.log(that.itemList);
+						if (res.data.data.length != 0) {
+							this.bitmap = true;
+							if (res.data.data.length <10) {
+								this.loading = false;
+							} else {
+								this.loading = true;
+							}
+
+						} else {
+							this.bitmap = false;
+						}
+
 					} else {
 						rs.Toast(res.data.msg)
 					}
@@ -110,11 +134,10 @@
 			},
 			onConfirm(res, type) {
 				this.result = res.result;
-				this.requestBuyerList()
 			},
 			clickTab(id) {
 				uni.navigateTo({
-					url: "./detail?id="+id
+					url: "./detail?id=" + id
 				})
 			},
 			tabs(item, index) {
@@ -124,7 +147,49 @@
 
 		},
 		onShow() {
-			this.requestBuyerList()
+			if(app.isReload==true){
+					this.requestBuyerList()
+			}
+			this.time=un.formatDate(1);
+		},
+		onLoad(){
+			app.isReload=true;
+		},
+		onReachBottom() {
+			let {
+				page
+			} = this;
+			this.loading = true;
+			var timeStamp = Math.round(new Date().getTime() / 1000);
+			var obj = {
+				appid: appid,
+				timeStamp: timeStamp,
+			}
+			var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+			var data = {
+				appid: appid,
+				timeStamp: timeStamp,
+				status: this.isActive,
+				created_at: this.result,
+				page: page + 1,
+				sign: sign,
+			}
+			rs.getRequests("buyerList", data, (res) => {
+
+				if (res.data.code == 200) {
+					console.log(res.data.data.length)
+					if (res.data.data.length != 0) {
+						this.itemList.push(...res.data.data);
+						this.page += 1;
+					} else {
+						this.loading = false;
+					}
+
+
+				} else {
+					rs.Toast(res.data.msg)
+				}
+			})
 		}
 	}
 </script>
@@ -133,7 +198,7 @@
 	.purchaseNote .head {
 		position: fixed;
 		width: 100%;
-		top: 0;
+		/* top: 0; */
 		left: 0;
 		background: #F9F9F9;
 	}
@@ -195,8 +260,8 @@
 
 	.purchaseNote .list_box {
 		padding-top: 175rpx;
-		padding-left: 15rpx;
-		padding-right: 15rpx;
+		/* padding-left: 15rpx; */
+		/* padding-right: 15rpx; */
 		padding-bottom: 110rpx;
 	}
 

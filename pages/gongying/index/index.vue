@@ -2,16 +2,17 @@
 	<view class="caigou_index">
 		<view class="index">
 			<view class="top flex_column">
+					<image src="../../../static/img/caigou_index.png" class="index_top_image"></image>
 				<view class="pop">
 					<cmd-progress type="circle" :percent="buyerIndex.buyerNum" :width="150" :stroke-width="7" stroke-color="#EBF8FB"></cmd-progress>
 				</view>
 				<view class="number_box">
 					<view class="number flex flex_align_center">
 						<view class="left">
-							未采数量 {{buyerIndex.unBuyerNum}}
+							未备数量 {{buyerIndex.unBuyerNum}}
 						</view>
 						<view class="right">
-							应采数量 {{buyerIndex.total}}
+							应备数量 {{buyerIndex.total}}
 						</view>
 					</view>
 				</view>
@@ -42,7 +43,7 @@
 				<view class="item flex flex_align_center flex_between">
 					<view class="left">
 						<view class="title">
-							今日采购品种
+							今日供应品种
 						</view>
 						<view class="time">
 							{{nowTimes}}

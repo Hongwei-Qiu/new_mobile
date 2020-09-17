@@ -1,5 +1,6 @@
 <template>
 	<view class="login">
+		
 		<view class="title">
 			<view class="xian"></view>
 			<view class="txt">
@@ -10,26 +11,32 @@
 		<form @submit="submit">
 			<view class="from">
 				<view class="item_box" @click="isShow = !isShow">
-					<view> 
+					<view class="iconwidth">
 						<text class="iconfont iconicon_jiaoseguanli" style="color: #C2C2C2;"></text>
 					</view>
-					<view class="inp">
+					<view class="inp inputwidth">
 						<input type="text" v-model="role" name="role" placeholder="请选择角色" disabled />
 					</view>
 				</view>
 				<view class="item_box">
-					<view>
+					<view class="iconwidth">
 						<text class="iconfont iconwode" style="color: #C2C2C2;"></text>
 					</view>
-					<view class="inp">
-						<input type="text" name="mobile" placeholder="请输入账号" />
+					<view class="inp inputwidth">
+						<block v-if="roleId!=3"><input type="text" v-model="mobile" placeholder="请输入账号" /></block>
+						<block v-else>
+							<view @click="visible=true">
+								<text :style="{color:mobile?'':'#C2C2CC','font-size':'30rpx'}">{{mobile?mobile:'请输入账号'}}</text>
+							</view>
+						</block>
+
 					</view>
 				</view>
 				<view class="item_box">
-					<view>
+					<view class="iconwidth">
 						<text class="iconfont iconmima" style="color: #C2C2C2;"></text>
 					</view>
-					<view class="inp_box">
+					<view class="inp_box inputwidth" >
 						<view>
 							<input name="password" :type="seen ? 'text' : 'password'" placeholder="请输入密码" />
 						</view>
@@ -44,7 +51,7 @@
 				</view>
 			</view>
 		</form>
-		
+
 
 		<view class="shade_box" v-if="isShow">
 			<view class="shade">
@@ -70,7 +77,10 @@
 				</view>
 			</view>
 		</view>
-
+		<w-picker :visible.sync="visible" mode="selector" :default-props="driverProps" :options="driverList" @confirm="confirmDriver($event,'selector')"
+		 ref="selector">
+			司机账号
+		</w-picker>
 	</view>
 </template>
 
@@ -93,16 +103,23 @@
 				mobile: '',
 				usr_pwd: "",
 				roleId: '',
+				driverList: [],
+				driverProps: {
+					label: 'value',
+					value: 'id'
+
+				},
 				isShow: false,
-				list: ''
+				list: '',
+				visible: false
 			}
 		},
 		methods: {
 			// 手机登录
 			submit(e) {
-				var mobile = e.detail.value.mobile
-				var password = e.detail.value.password
-				var type = this.roleId
+				let {mobile} =this;
+				var password = e.detail.value.password;
+				var type = this.roleId;
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				if (!mobile) {
 					rs.Toast('手机号码不能为空，请输入手机号');
@@ -125,7 +142,7 @@
 					},
 					obj
 				);
-			
+
 				rs.postRequests('login', params, res => {
 					let data = res.data;
 					if (data.code == 200) {
@@ -133,40 +150,44 @@
 						uni.setStorageSync('token', data.data.token);
 						uni.setStorageSync('port', data.data.type);
 						setTimeout(function() {
-							if(data.data.type == 1){
+							if (data.data.type == 1) {
 								//采购端
 								uni.reLaunch({
 									url: '/pages/caigou/index/index'
 								});
 								return;
 							}
-							if(data.data.type == 2){
+							if (data.data.type == 2) {
 								//供应商端
 								uni.reLaunch({
 									url: '/pages/gongying/index/index'
 								});
 								return;
 							}
-							if(data.data.type == 3){
+							if (data.data.type == 3) {
 								uni.reLaunch({
 									url: '/pages/siji/index/index'
 								});
 								//司机端
 								return;
 							}
-							if(data.data.type == 4){
+							if (data.data.type == 4) {
 								//业务端
+								uni.reLaunch({
+									url: '/pages/saleman/index/index'
+								});
+							
 								return;
 							}
-							if(data.data.type == 5){
+							if (data.data.type == 5) {
 								//超级管理员端
+								uni.reLaunch({
+									url: '/pages/admin/index/index'
+								});
 								return;
 							}
 						}, 1000);
-						
-						// uni.switchTab({
-						// 	url: '/pages/tabar/index'
-						// });
+
 					} else {
 						rs.Toast(data.msg);
 					}
@@ -196,48 +217,80 @@
 			roleChoices(item, index) {
 				this.role = item.value;
 				this.roleId = item.id;
-				this.status = index + 1
+				this.status = index + 1;
+
+				if (item.id == 3) {
+					let that = this;
+					let timeStamp = rs.timeStamp();
+					var obj = {
+						appid: appid,
+						timeStamp: timeStamp,
+					}
+					var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+					let data = Object.assign({
+						sign: sign
+					}, obj);
+					rs.getRequests("cart", data, (res) => {
+						if (res.data.code == 200) {
+							this.driverList = res.data.data;
+						} else {
+							rs.Toast(res.data.msg)
+						}
+					})
+
+				}
+			},
+			confirmDriver(e){
+				this.mobile=e.result;
 			},
 			changeSeen() {
 				this.seen = !this.seen;
-			},
-			clickLeft() {
-
 			}
-
 		},
 		onLoad() {
 			var token = uni.getStorageSync("token")
 			var port = uni.getStorageSync("port")
-			
-			if(token != ''){
-				if(port == 1){
+
+			if (token != '') {
+				if (port == 1) {
 					//采购端
 					uni.reLaunch({
 						url: '/pages/caigou/index/index'
 					});
 					return;
 				}
-				if(port == 2){
+				if (port == 2) {
 					//供应商端
+					uni.reLaunch({
+						url: '/pages/gongying/index/index'
+					});
 					return;
 				}
-				if(port == 3){
+				if (port == 3) {
 					//司机端
+					uni.reLaunch({
+						url: '/pages/siji/index/index'
+					});
 					return;
 				}
-				if(port == 4){
+				if (port == 4) {
 					//业务端
+					uni.reLaunch({
+						url: '/pages/saleman/index/index'
+					});
 					return;
 				}
-				if(port == 5){
+				if (port == 5) {
 					//超级管理员端
+					uni.reLaunch({
+						url: '/pages/admin/index/index'
+					});
 					return;
 				}
-			}else{
+			} else {
 				this.roleType()
 			}
-			
+
 		}
 	}
 </script>
@@ -249,7 +302,7 @@
 
 	.login .title {
 		display: flex;
-		margin-top: 90rpx;
+		padding-top: 90rpx;
 	}
 
 	.login .title .xian {
@@ -286,7 +339,7 @@
 
 	.login .from .item_box text {
 		font-size: 40rpx;
-		margin-right: 40rpx;
+		margin-right: 10rpx;
 	}
 
 	.login .from .item_box input {
@@ -321,6 +374,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		z-index: 99;
 	}
 
 	.login .shade_box .shade {
@@ -403,4 +457,6 @@
 	.login .shade_box .shade .list .item .iconfont {
 		font-size: 40rpx;
 	}
+	.iconwidth{width:10%;}
+	.inputwidth{width:90%;}
 </style>

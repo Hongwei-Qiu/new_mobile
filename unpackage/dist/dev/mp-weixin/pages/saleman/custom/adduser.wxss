@@ -1,0 +1,60 @@
+
+.add_user {
+	background: white;
+	height: 100vh;
+}
+.add_user .user_info input {
+	font-size: 26rpx;
+}
+.add_user .user_info {
+	background: white;
+	padding: 0 20rpx;
+}
+.add_user .user_info>view {
+	border-bottom: 1px solid #F0F0F0;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	height: 80rpx;
+	font-size: 26rpx;
+}
+.add_user .user_info>view view:first-child {
+	width: 150rpx;
+}
+.add_user .user_info>view view:last-child {
+	width: 95%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.add_user .place_style {
+	font-size: 26rpx;
+}
+.add_user .file_info {
+	border-top: 10rpx solid #F5f5f5;
+}
+.add_user .save {
+	width: 539rpx;
+	height: 68rpx;
+	background: #04AA8E;
+	border-radius: 34rpx;
+	color: white;
+	line-height: 68rpx;
+	text-align: center;
+	margin: 55rpx auto 0;
+	font-size: 28rpx;
+}
+.add_user .iconfont {
+	font-size: 26rpx;
+	color: #c2c2c2;
+}
+

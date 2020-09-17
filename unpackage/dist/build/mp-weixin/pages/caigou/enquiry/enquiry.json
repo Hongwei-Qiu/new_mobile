@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "my-apphead": "/components/my-apphead/index",
+    "my-bitmap": "/components/my-bitmap/index",
+    "w-picker": "/components/w-picker/w-picker",
+    "uni-icons": "/components/uni-icons/uni-icons",
+    "tabar": "/components/tabbar/caigou",
+    "e-picker": "/components/w-picker2/w-picker"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "my-apphead": "/components/my-apphead/index",
+    "my-bitmap": "/components/my-bitmap/index",
+    "tabar": "/components/tabbar/siji",
+    "h-m-drag-sorts": "/components/HM-dragSorts/HM-dragSorts",
+    "bw-drag-sort": "/wxcomponents/bw-drag-sort/bw-drag-sort"
+  }
+}

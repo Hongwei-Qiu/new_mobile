@@ -52,6 +52,7 @@
 		},
 		methods: {
 			pageUrl(data, index) {
+				getApp().globalData.isReload=true;
 				uni.reLaunch({
 					url: data.url
 				});

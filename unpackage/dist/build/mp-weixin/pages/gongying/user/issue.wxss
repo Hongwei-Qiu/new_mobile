@@ -1,0 +1,1 @@
+.issue_item{background:#fff;padding:0 20rpx;margin-bottom:10rpx}.issue_item view{padding:25rpx 0}.issue_item view text{color:#666}.issue_item .title{border-bottom:1px solid #f0f0f0}

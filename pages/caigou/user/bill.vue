@@ -1,39 +1,58 @@
 <template>
 	<view class="caigou_index">
-		<uni-nav-bar left-icon="back" right-text="供应商" title="月账单" color="#1A1A1A" @clickLeft="goPage"></uni-nav-bar>
-		<view class="head">
-			<view class="inp_box flex flex_center">
-				<view class="time">
-					<input type="text" v-model="time" placeholder="请选择日期" disabled="true"  @tap="dateVisible1=true"/>
-				</view>
-				<view class="btn" @click="search()">
-					<text class="iconfont iconseach-"></text>
+		<my-apphead></my-apphead>
+		<view class="fix_top">
+			<uni-nav-bar left-icon="back" right-text="供应商" title="月账单" color="#1A1A1A" @clickLeft="goPage" @clickRight="selectCustom"></uni-nav-bar>
+			<view style="height:44px;"></view>
+			<view class="head">
+				<view class="inp_box flex flex_center">
+					<view class="time">
+						<input type="text" v-model="time" placeholder="请选择日期" disabled="true" @tap="dateVisible1=true" />
+					</view>
+					<view class="btn" @click="search()">
+						<text class="iconfont iconseach-"></text>
+					</view>
 				</view>
 			</view>
-		</view>
-		<view style="height: 190rpx;background: #F9F9F9;"></view>
-
-		<view class="bill">
 			<view class="top">
 				月采购金额总计(元)：<text class="red_font">¥{{total}}</text>
 			</view>
+		</view>
+
+		<view style="height: calc(44px + 172rpx);background: #F9F9F9;"></view>
+
+		<view class="bill" v-if="bitmap">
+
 			<view class="item" v-for="item in list">
 				<view>{{item.order_sn}}</view>
 				<view class="red_font">¥{{item.total_price}}</view>
 			</view>
+			<my-loading :loading="loading"></my-loading>
 		</view>
-		<w-picker
-			:visible.sync="dateVisible1"
-			mode="date" 
-			startYear="2017" 
-			endYear="2029"
-			:value="time"
-			:current="false"
-			fields="month"
-			@confirm="onConfirm($event,'date1')"
-			:disabled-after="false"
-			ref="date1"
-		></w-picker>
+		<view v-else>
+			<my-bitmap></my-bitmap>
+		</view>
+		<w-picker :visible.sync="dateVisible1" mode="date" startYear="2017" endYear="2029" :value="time" :current="false"
+		 fields="month" @confirm="onConfirm($event,'date1')" :disabled-after="false" ref="date1"></w-picker>
+		<view class="supplier_style" v-if="selectorVisible">
+			<view class="mask"></view>
+			<view class="supplier_list">
+				<view class="supplier_title">
+					<text></text>
+					<text>供应商</text>
+					<text class="iconfont iconcha" @click="selectorVisible=false"></text>
+				</view>
+				<view class="all_supplier">
+					<view v-for="(item,index) in customList" class="sign_supplier">
+						<text>{{item.label}}</text>
+						<text class="iconfont " :class="item.status?'iconxuanze1':'iconxuanze'" :style="{'color':item.status?'#03A98D':'#c9c9c9'}"
+						 @click="checkedIndex(index)"></text>
+
+					</view>
+				</view>
+			</view>
+		</view>
+
 	</view>
 </template>
 
@@ -57,58 +76,142 @@
 		data() {
 			return {
 				navBar: navBar,
-				time:'',
-				dateVisible1:false,
-				total:'',
-				list:[]
+				time: '',
+				dateVisible1: false,
+				total: '',
+				list: [],
+				customList: [],
+				selectorVisible: false,
+				customProps: {
+					label: 'label',
+					value: 'value'
+				},
+				supplier_ids: [],
+				bitmap: true,
+				loading: true
 			}
 		},
 		methods: {
-			onConfirm(res,type){
-				// this.result=res;
-				// console.log(res)
+			onConfirm(res, type) {
 				this.time = res.value
 			},
 			goPage() {
+				// #ifdef H5
+				window.history.back(-1);
+				// #endif 
+				// #ifndef H5
 				uni.navigateBack({
 					delta: 1
-				})
+				});
+				// #endif	
 			},
-			search(){
-				this.requestBill()
+			search() {
+				this.requestBill();
+				this.requestSupplier();
+			},
+			// 选择供应商
+			selectCustom() {
+				this.selectorVisible = true;
+
+			},
+			checkedIndex(index) {
+				this.customList[index].status = !this.customList[index].status;
+				this.supplier_ids = [];
+				for (let i of this.customList) {
+					if (i.status == true) {
+						this.supplier_ids.push(i.value)
+					}
+				}
+				this.requestBill();
+			
 			},
 			requestBill() {
 				let that = this;
 				that.list = [];
+				that.bitmap = true;
+				that.loading = true;
 				var timeStamp = Math.round(new Date().getTime() / 1000);
 				var obj = {
 					appid: appid,
 					timeStamp: timeStamp,
 				}
 				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
-				var data = {
+
+				let app = getApp();
+				let a = '';
+				for (let i of that.supplier_ids) {
+					a += '&supplier_id[]=' + i;
+				}
+
+				uni.request({
+					method: 'GET',
+					dataType: 'json',
+					header: {
+						'Accept': 'application/json',
+						'content-type': 'application/json', 
+						'Authorization': uni.getStorageSync("token"),
+					},
+					url: app.globalData.rootUrl + '/mobileAdmin/buyerMonthBill?appid=' + appid +
+						a +
+						'&created_at=' + that.time +
+						'&timeStamp=' + timeStamp +
+						'&sign=' + sign,
+					success: (res) => {
+						if (res.header.authorization != undefined) {
+							uni.setStorageSync("token", res.header.authorization)
+						}
+						if (res.data.code == 200) {
+							that.list = res.data.data.data;
+							if (res.data.data.data.length == 0) {
+								that.bitmap = false;
+							} else {
+								that.bitmap = true;
+							}
+							that.total = res.data.data.total;
+						} else{
+							rs.Toast(res.data.msg)
+						}
+					}
+				})
+			},
+			requestSupplier() {
+				var timeStamp = Math.round(new Date().getTime() / 1000);
+				var obj = {
 					appid: appid,
 					timeStamp: timeStamp,
-					created_at:that.time,
-					sign: sign,
 				}
-				rs.getRequests("buyerMonthBill", data, (res) => {
+				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				var data = Object.assign({
+					sign: sign,
+					created_at: this.time
+				}, obj);
+				rs.getRequests("supplier", data, (res) => {
 					// console.log(res.data.data)
 					if (res.data.code == 200) {
-						that.list = res.data.data.data;
-						that.total = res.data.data.total;
+
+						this.customList = [];
+						for (let i of res.data.data) {
+							i.status = false;
+							this.customList.push(i)
+						}
+						this.loading = false;
 					} else {
 						rs.Toast(res.data.msg)
 					}
 				})
 			},
-
+			confirmcustom(e) {
+				this.customTypeId = e.value;
+				this.search();
+			}
 
 		},
-		onLoad(){
+		onLoad() {
 			this.time = un.doHandleDate();
-			this.requestBill()
+			this.requestBill();
+			this.requestSupplier();
 		}
+
 	}
 </script>
 
@@ -118,8 +221,14 @@
 	}
 
 	.head {
-		position: fixed;
+		/* position: fixed; */
+
+		/* #ifdef H5/MP-WEIXIN */
 		top: 80rpx;
+		/* #endif */
+		/* #ifdef APP-PLUS */
+		top: 130rpx;
+		/* #endif */
 		left: 0;
 		width: 100%;
 		background: #FFFFFF;
@@ -175,16 +284,22 @@
 	.bill .item:last-child {
 		border: none;
 	}
+
+	.fix_top {
+		position: fixed;
+	}
+
+	.fix_top .top {
+		font-size: 28rpx;
+		font-weight: 500;
+		padding: 15rpx 20rpx;
+		background: white;
+
+		border-bottom: 10rpx solid #F9F9F9;
+		border-top: 10rpx solid #F9F9F9;
+	}
+
+	.caigou_index .show_bitmap {
+		padding-top: 21%;
+	}
 </style>
-
-
-<!-- <view class="bill">
-	<view class="top">
-		月采购金额总计(元)：<text class="red_font">¥499.30</text>
-	</view>
-	<view class="item">
-		<view>GG2020070300000001</view>
-		<view class="red_font">¥346.80</view>
-	</view>
-</view>
- -->

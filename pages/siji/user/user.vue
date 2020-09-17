@@ -1,12 +1,13 @@
 <template>
 	<view class="caigou_index">
+		<my-apphead></my-apphead>
 		<view class="user">
 			<view class="top flex flex_align_center">
 				<view class="logo">
 					个人中心
 				</view>
 				<view>
-					<view class="phone">786564</view>
+					<view class="phone">{{mineInfo.mobile}}</view>
 				</view>
 			</view>
 			<view class="list">
@@ -45,21 +46,21 @@
 				tabNum: 4,
 				mineData: '',
 				token: '',
-				userinfo: '',
+				mineInfo: '',
 				userList: [{
 						icon: 'iconmima',
 						name: '修改密码',
-						url: '/pages/gongying/user/forget'
+						url: '/pages/siji/user/forget'
 					},
 					{
 						icon: 'iconwenti',
 						name: '常见问题',
-						url: '/pages/gongying/user/issue'
+						url: '/pages/siji/user/issue'
 					},
 					{
 						icon: 'iconzuobiao',
 						name: '车辆位置',
-						url: '/pages/gongying/user/bill'
+						url: 'carPostion'
 					},
 					{
 						icon: 'icontuichudenglu',
@@ -74,10 +75,10 @@
 					var that = this;
 					uni.showModal({
 						content: '是否退出登录？',
-						cancelText: "我再想想",
+						cancelText: "取消",
 						cancelColor: "#999",
 						confirmText: "确认",
-						confirmColor: "#DEC17C",
+						confirmColor: "#04A98E",
 						success: function(res) {
 							if (res.confirm) {
 								var timeStamp = Math.round(new Date().getTime() / 1000);
@@ -113,11 +114,33 @@
 							}
 						}
 					});
-				} else if (data.url == 'bindWeChat') {
-					// #ifdef H5
-					this.adminisus_weixin()
-					// #endif
-
+				} else if (data.url == 'carPostion') {
+					var timeStamp = rs.timeStamp();
+					var obj = {
+						appid: appid,
+						timeStamp: timeStamp,
+					}
+					var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+					var data = {
+						appid: appid,
+						timeStamp: timeStamp,
+						sign: sign,
+					}
+					rs.getRequests("vehicleCarPosition", data, (res) => {
+						if (res.data.code == 200) {
+						
+							if(res.data.data.length!=0){
+								uni.openLocation({
+									longitude:res.data.data.longitude,
+									latitude:res.data.data.latitude
+								})
+							}else{
+								rs.Toast('无车辆信息');
+							}
+						} else {
+							rs.Toast(res.data.msg)
+						}
+					})
 				} else {
 					uni.navigateTo({
 						url: data.url
@@ -125,8 +148,30 @@
 				}
 
 			},
-
+			mine() {
+				var timeStamp = rs.timeStamp();
+				var obj = {
+					appid: appid,
+					timeStamp: timeStamp,
+				}
+				var sign = md5.hexMD5(rs.objKeySort(obj) + appsecret);
+				var data = {
+					appid: appid,
+					timeStamp: timeStamp,
+					sign: sign,
+				}
+				rs.getRequests("mine", data, (res) => {
+					if (res.data.code == 200) {
+						this.mineInfo=res.data.data;
+					} else {
+						rs.Toast(res.data.msg)
+					}
+				})
+			}
 		},
+		onShow() {
+			this.mine();
+		}
 	}
 </script>
 
@@ -191,4 +236,3 @@
 		color: #C2C2C2;
 	}
 </style>
-

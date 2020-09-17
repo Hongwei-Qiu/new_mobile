@@ -1,0 +1,153 @@
+//行高度
+var row_Height = 45;
+
+function touchstart(event, instance) {
+	var rowData = event.instance.getDataset();
+	var state = instance.getState();
+	if (event.touches.length == 1) {
+		state.point = event.touches[0];
+		state.islongTap = true;
+		state.rowData = rowData;
+	}
+	//兼容微信小程序这坑货
+	var rowtype = rowData.type == "A" ? "B" : "A";
+	resetstyle(state, instance, rowtype);
+	return false;
+}
+
+function touchmove(event, instance) {
+	var state = instance.getState();
+	var movePoint = event.touches[0];
+	var initPoint = state.point;
+	var moveY = movePoint.pageY - initPoint.pageY;
+	moveRow(instance, moveY);
+	return false;
+}
+
+function touchend(event, instance) {
+	var state = instance.getState();
+	var rowtype = state.rowData.type;
+	if (typeof state.offset !== "undefined" && state.rowData.index != state.offset && state.offset != null) {
+		instance.callMethod("sort", {
+			index: state.rowData.index,
+			offset: state.offset
+		});
+	} else {
+		resetstyle(state, instance, rowtype);
+		feedbackGenerator(instance); //震动反馈
+		return false;
+	}
+	var isdelay = state.rowData.isdelay;
+	isdelay = typeof(isdelay) == "undefined"?false:JSON.parse(isdelay); 
+	if (isdelay) {
+		//非H5端，加一个延迟，切换list之后再重置样式，能避免看到排序渲染过程。
+		typeof setTimeout !== "undefined" && setTimeout(function() {
+			resetstyle(state, instance, rowtype);
+		}, 100);
+	} else {
+		console.log('123');
+		resetstyle(state, instance, rowtype);
+	}
+	state.offset = null;
+	oldOffset = null;
+	feedbackGenerator(instance); //震动反馈
+	return false;
+}
+
+function resetstyle(state, instance, rowtype) {
+	var blockList = instance.selectAllComponents('.row' + rowtype);
+	for (var i = 0; i < blockList.length; i++) {
+		blockList[i].setStyle({});
+		blockList[i].removeClass('ani');
+		blockList[i].removeClass('move');
+	}
+}
+// move Row 
+function moveRow(instance, moveY) {
+	var state = instance.getState();
+	var rowtype = state.rowData.type;
+	var rowDom = instance.selectComponent('#row' + rowtype + state.rowData.index);
+	rowDom.hasClass('move') || rowDom.addClass('move');
+	rowDom.removeClass('ani');
+	var style = {
+		'transform': 'translateY(' + moveY + 'px) translateZ(10px)',
+		'-webkit-transform': 'translateY(' + moveY + 'px) translateZ(10px)'
+	}
+	rowDom.setStyle(style);
+	var initIndex = parseInt(state.rowData.index);
+	oldOffset = oldOffset == null ? initIndex : oldOffset;
+	var offset = calcOffset(initIndex, moveY);
+	if (offset < 0 || offset >= state.rowData.rownum) {
+		return;
+	}
+	if (offset == oldOffset) {
+		return;
+	}
+	oldOffset = offset;
+	state.offset = offset;
+	feedbackGenerator(instance); //震动反馈
+	var blockList = instance.selectAllComponents('.row' + rowtype);
+	for (var i = 0; i < blockList.length; i++) {
+		if (i == initIndex) {
+			continue;
+		}
+		var translateY = 0;
+		if ((i >= offset && i < initIndex) || (i <= offset && i > initIndex)) {
+			translateY = i < initIndex ? row_Height : -row_Height;
+		}
+		var style = {
+			'transform': 'translateY(' + translateY + 'px) translateZ(5px)',
+			'-webkit-transform': 'translateY(' + translateY + 'px) translateZ(5px)'
+		}
+		blockList[i].hasClass('ani') || blockList[i].addClass('ani');
+		blockList[i].setStyle(style);
+	}
+}
+//计算偏移index
+var oldOffset = null;
+function calcOffset(initIndex, moveY) {
+	var offset = initIndex + parseInt(moveY / row_Height); //偏移 40的倍数
+	var rest = moveY % row_Height;
+	if (rest > 0) {
+		offset = offset + (rest / row_Height >= 0.6 ? 1 : 0);
+		if (offset < oldOffset) {
+			offset = rest / row_Height <= 0.4 ? offset : oldOffset;
+		}
+	} else {
+		offset = offset + (rest / row_Height <= -0.6 ? -1 : 0);
+		if (offset > oldOffset) {
+			offset = rest / row_Height >= -0.4 ? offset : oldOffset;
+		}
+	}
+	return offset;
+}
+
+//触感反馈
+//wxs 不支持条件编译，所以用此方法判断
+var isiOSAPP = typeof plus != "undefined" && plus.os.name == 'iOS';
+var UISelectionFeedbackGenerator;
+var UIImpactFeedbackGenerator;
+var impact
+
+if (isiOSAPP) {
+	UISelectionFeedbackGenerator = plus.ios.importClass("UISelectionFeedbackGenerator");
+	impact = new UISelectionFeedbackGenerator();
+	impact.init();
+}
+
+function feedbackGenerator(instance) {
+	if (isiOSAPP) {
+		impact.selectionChanged();
+	} else {
+		if (typeof plus != "undefined") {
+			plus.device.vibrate(12)
+		} else {
+			instance.callMethod("vibrate");
+		}
+	}
+}
+module.exports = {
+	touchstart: touchstart,
+	touchmove: touchmove,
+	touchend: touchend
+}

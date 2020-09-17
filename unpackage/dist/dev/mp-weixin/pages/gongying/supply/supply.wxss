@@ -1,0 +1,90 @@
+
+.purchaseNote .head {
+	position: fixed;
+	width: 100%;
+	/* top: 0; */
+	left: 0;
+	background: #F9F9F9;
+}
+.purchaseNote .head .inp_box {
+	background: #ffffff;
+	padding: 15rpx 20rpx;
+}
+.purchaseNote .head .inp_box .time {
+	width: 75%;
+	background: #F5F5F5;
+	padding: 15rpx 30rpx;
+	border-radius: 50rpx 0 0 50rpx;
+}
+.purchaseNote .head .inp_box .time input {
+	width: 100%;
+	font-size: 28rpx;
+}
+.purchaseNote .head .inp_box .btn {
+	background: #03A98E;
+	color: #ffffff;
+	padding: 14rpx 25rpx 14rpx 20rpx;
+	border-radius: 0 50rpx 50rpx 0;
+}
+.purchaseNote .head .inp_box .btn .iconfont {
+	font-size: 38rpx;
+}
+.purchaseNote .tab_box {
+	padding: 0 30rpx;
+	color: #666666;
+	font-family: PingFang SC;
+}
+.purchaseNote .tab_box .tab {
+	height: 60rpx;
+	line-height: 60rpx;
+	padding-bottom: 10rx;
+	text-align: center;
+}
+.purchaseNote .tab_box .tab.active {
+	color: #03A98E;
+}
+.purchaseNote .tab_box .tab .xian {
+	width: 38rpx;
+	height: 5rpx;
+	background: rgba(3, 169, 142, 1);
+	border-radius: 10rpx;
+	position: relative;
+	left: 50%;
+	margin-left: -19rpx;
+}
+.purchaseNote .list_box {
+	padding-top: 175rpx;
+	padding-left: 15rpx;
+	padding-right: 15rpx;
+	padding-bottom: 110rpx;
+}
+.purchaseNote .list_box .item {
+	background: #ffffff;
+	padding: 15rpx 20rpx 0 20rpx;
+	margin-bottom: 10rpx;
+}
+.purchaseNote .list_box .item .title {
+	border-bottom: 1rpx solid #F0F0F0;
+	padding-bottom: 15rpx;
+	margin-bottom: 15rpx;
+}
+.purchaseNote .list_box .item .title .left {
+	font-size: 30rpx;
+	font-family: PingFang SC;
+	font-weight: 400;
+	color: #333333;
+}
+.purchaseNote .list_box .item .title .right {
+	font-size: 28rpx;
+	font-family: PingFang SC;
+	font-weight: 400;
+	color: #E8748B;
+}
+.purchaseNote .list_box .item .txt {
+	padding-bottom: 15rpx;
+	color: #666666;
+	font-size: 28rpx;
+	font-family: PingFang SC;
+	font-weight: 400;
+}
+

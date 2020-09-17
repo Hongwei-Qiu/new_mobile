@@ -1,0 +1,1 @@
+<view class="show_bitmap"><image class="bitmap_style" src="../../static/img/no_content.png" mode="aspectFit"></image><text class="text_message">亲，目前暂无数据~</text></view>

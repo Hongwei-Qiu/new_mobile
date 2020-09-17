@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "my-apphead": "/components/my-apphead/index",
+    "tabar": "/components/tabbar/gongying"
+  }
+}

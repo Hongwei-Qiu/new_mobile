@@ -1,0 +1,97 @@
+
+.detail .list_box .top_item {
+	background: #ffffff;
+	padding: 15rpx 20rpx;
+	font-size: 26rpx;
+	font-family: PingFang SC;
+	margin-bottom: 15rpx;
+}
+.detail .list_box .top_item .txt {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	padding-bottom: 20rpx;
+	font-size: 28rpx;
+}
+.detail .list_box .top_item .txt:last-child {
+	padding-bottom: 0;
+}
+.detail .list_box .item {
+	background: #ffffff;
+	padding: 15rpx 20rpx;
+	font-size: 28rpx;
+	font-family: PingFang SC;
+	margin-bottom: 15rpx;
+}
+.detail .list_box .item .title {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	padding-bottom: 15rpx;
+	border-bottom: 1px solid #F0F0F0;
+	font-weight: 500;
+	margin-bottom: 15rpx;
+}
+.detail .list_box .item .txt {
+	font-weight: 400;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	padding-bottom: 20rpx;
+	font-size: 26rpx;
+}
+.detail .list_box .item .rr_txt text {
+	margin-right: 35rpx;
+}
+.detail .shade_box {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: rgba(0, 0, 0, 0.3);
+}
+.detail .shade_box .shade {
+	background: #ffffff;
+	margin: 0 100rpx;
+	margin-top: 35%;
+	padding: 18rpx;
+	border-radius: 8rpx;
+	text-align: end;
+}
+.detail .shade_box .top {
+	padding-bottom: 40rpx;
+}
+.detail .shade_box .top .iconfont {
+	font-size: 40rpx;
+	color: #666666;
+}
+.detail .shade_box .inp_box {
+	font-size: 28rpx;
+	padding-bottom: 50rpx;
+}
+.detail .shade_box .inp_box input {
+	color: #333333;
+}
+.detail .shade_box .btn_box {
+	text-align: center;
+	padding-bottom: 50rpx;
+	margin-top: 20rpx;
+}
+.detail .shade_box .btn_box view {
+	background: #03A98E;
+	color: #ffffff;
+	font-size: 30rpx;
+	border-radius: 50rpx;
+	padding: 15rpx 0;
+}
+

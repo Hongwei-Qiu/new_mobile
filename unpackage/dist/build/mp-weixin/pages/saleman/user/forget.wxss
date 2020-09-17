@@ -1,0 +1,1 @@
+page{background:#fff}.inp_box{padding:0 15rpx}.inp_box .item{display:-webkit-box;display:-webkit-flex;display:flex;padding:25rpx 0;border-bottom:1px solid #f0f0f0}.inp_box .item text:nth-child(1){width:160rpx}.inp_box .btn{color:#fff;background:#03a98e;text-align:center;padding:15rpx 0;border-radius:50rpx;margin:0 80rpx;margin-top:60rpx}

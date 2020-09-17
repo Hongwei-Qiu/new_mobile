@@ -1,0 +1,59 @@
+
+.caigou_index .index .top {
+	height: 400rpx;
+	/* background: url(../../../static/img/caigou_index.png) no-repeat; */
+	background-size: 100% 100%;
+	text-align: center;
+	padding-top: 100rpx;
+	position: relative;
+}
+.caigou_index .index .top .number_box {
+	width: 100%;
+	position: absolute;
+	bottom: -40rpx;
+}
+.caigou_index .index .top .number_box .number {
+	background: #FFFFFF;
+	margin: 0 90rpx;
+	box-shadow: 0px 2px 10px 0px rgba(71, 131, 144, 0.16);
+	border-radius: 50rpx;
+	padding: 20rpx 0;
+	font-size: 28rpx;
+}
+.caigou_index .index .top .number_box .number .left {
+	width: 50%;
+	color: #03A98E;
+	border-right: 1px solid #d6d6d6;
+}
+.caigou_index .index .top .number_box .number .right {
+	width: 50%;
+	color: #FEB733;
+}
+.caigou_index .index .list_box {
+	margin-top: 90rpx;
+	padding: 0 30rpx;
+}
+.caigou_index .index .list_box .item {
+	box-shadow: 0px 2px 18px 0px rgba(54, 54, 54, 0.16);
+	border-radius: 10rpx;
+	background: #FFFFFF;
+	padding: 20rpx 40rpx 20rpx 30rpx;
+	margin-bottom: 40rpx;
+}
+.caigou_index .index .list_box .item .title {
+	font-size: 34rpx;
+	color: #666666;
+	font-weight: bold;
+	margin-bottom: 10rpx;
+}
+.caigou_index .index .list_box .item .time {
+	font-size: 28rpx;
+	color: #666666;
+	font-weight: 400;
+}
+.caigou_index .index .list_box .item .right {
+	font-size: 40rpx;
+	color: #FEB733;
+	font-weight: 500;
+}
+

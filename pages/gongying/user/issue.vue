@@ -1,7 +1,8 @@
 <template>
 	<view class="caigou_index">
-		<uni-nav-bar left-icon="back" left-text="" title="常见问题" color="#1A1A1A" @clickLeft="goPage"></uni-nav-bar>
-		<view style="height: 90rpx;background: #F9F9F9;"></view>
+		
+		<uni-nav-bar left-icon="back"  :statu-bar="navBar"  title="常见问题" color="#1A1A1A" @clickLeft="goPage"></uni-nav-bar>
+		<view style="height: 49px;background: #F9F9F9;"></view>
 		
 		<view class="issue_item" v-for="item in list">
 			<view class="title">
@@ -68,9 +69,14 @@
 		},
 		methods: {
 			goPage(){
+				// #ifdef H5
+				window.history.back(-1);
+				// #endif 
+				// #ifndef H5
 				uni.navigateBack({
-					delta:1
-				})
+					delta: 1
+				});
+				// #endif	
 			},
 
 		}

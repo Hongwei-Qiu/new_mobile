@@ -1,16 +1,17 @@
 <template>
 	<view class="caigou_index">
+		<my-apphead></my-apphead>
 		<view class="purchase">
 			<view class="head">
 				<view class="tab_box">
-					<ms-tabs :list="type" v-model="active" itemColor="#03A98E"></ms-tabs>
+					<ms-tabs :list="type" v-model="active" itemColor="#03A98E" lineColor="white"></ms-tabs>
 				</view>
 				<view class="flex flex_center search_box">
 					<view class="flex flex_align_center inp_box">
 						<view class="flex flex_align_center left">
 							<view class="flex flex_align_center zd">
-								<input type="text" placeholder="输入置顶商品" />
-								<text class="zd_txt">置顶</text>
+								<input type="text" placeholder="输入置顶商品" v-model="sortName"/>
+								<text class="zd_txt" @click="sortTop">置顶</text>
 							</view>
 							<view class="time" @tap="dateVisible1=true">
 								{{time}}
@@ -24,7 +25,7 @@
 			</view>
 
 
-			<view class="list_box">
+			<view class="list_box" v-if="bitmap">
 				<view class="item" v-for="(item,index) in itemList">
 					<view class="title">{{item.title}}</view>
 					<view class="body">
@@ -57,9 +58,10 @@
 							</block>
 						</view>
 					</view>
-					<form @submit="submit">
+					<form @submit="submit(item)">
 						<view class="flex flex_between inp_btn">
 							<view class="inp" style="display: none;">
+								<input type="text" v-model="item.remark" />
 								<input type="number" name="list_id" placeholder="数量" v-model="item.list_id" />
 							</view>
 							<view class="inp">
@@ -69,10 +71,10 @@
 								<input type="number" name="price" placeholder="单价" v-model="item.price" />
 							</view>
 							<view class="inp" v-if="(item.num * item.price) <= 0">
-								<input type="number" name="total" placeholder="合计" />
+								<input type="number" name="total" placeholder="合计" disabled="disabled" />
 							</view>
 							<view class="inp" v-else>
-								<input type="number" name="total" placeholder="合计" v-model="item.num * item.price" />
+								<input type="number" name="total" placeholder="合计" v-model="item.num * item.price" disabled="disabled" />
 							</view>
 							<button class="btn" form-type="submit">完成</button>
 						</view>
@@ -80,14 +82,16 @@
 
 				</view>
 			</view>
-
+			<view class="" v-else>
+				<my-bitmap></my-bitmap>
+			</view>
 			<w-picker :visible.sync="selectorVisible" mode="selector" value="女" default-type="name" :default-props="defaultProps"
 			 :options="selectorList" @confirm="onConfirm($event,'selector')" ref="selector"></w-picker>
 			<w-picker :visible.sync="dateVisible1" mode="date" startYear="2017" endYear="2029" :value="time" :current="false"
 			 fields="day" @confirm="onConfirm1($event,'date1')" :disabled-after="false" ref="date1"></w-picker>
 		</view>
 
-		<tabar :tabarIndex="tabNum"></tabar>
+		<tabar :tabarIndex="tabNum" v-if="showTabar"></tabar>
 	</view>
 </template>
 
@@ -113,8 +117,10 @@
 		data() {
 			return {
 				navBar: navBar,
+				showTabar:true,
 				tabNum: 1,
 				isShow: '空',
+				bitmap: true,
 				type: [],
 				active: '',
 				cate_id: '', //商品分类ID
@@ -128,6 +134,7 @@
 				},
 				selectorList: [],
 				itemList: [],
+				sortName:'',
 			}
 		},
 		watch: {
@@ -137,11 +144,28 @@
 			}
 		},
 		methods: {
-			submit(e){
-				let id = e.detail.value.list_id;
-				let num = e.detail.value.number;
-				let price = e.detail.value.price;
-				let total = e.detail.value.total;
+			
+			sortTop(){
+					let name=this.sortName;
+				function up(x,y){
+					if(x.title.indexOf(name)!=-1){
+										   return -1
+					}
+				}
+				this.itemList.sort(up)
+					
+			},
+			submit(e, index) {
+				
+				// let id = e.detail.value.list_id;
+				// let num = e.detail.value.number;
+				// let price = e.detail.value.price;
+				// let total = e.detail.value.total;
+				let id = e.list_id;
+				let num = e.num;
+				let price = e.price;
+				let total = num*price;
+				// console.log(e)
 				let timeStamp = Math.round(new Date().getTime() / 1000);
 				if (!num) {
 					rs.Toast('请输入数量');
@@ -165,11 +189,16 @@
 					},
 					obj
 				);
-				rs.postRequests('buyerInputPrice', params, res => {
+				rs.postRequests('supplierInputPrice', params, res => {
 					let data = res.data;
 					if (data.code == 200) {
 						rs.Toast('完成');
-						this.requestItemList()
+                       this.itemList.splice(index,1);
+					   if(this.itemList.length==0){
+						   this.bitmap=false;
+					   }else{
+						    this.bitmap=true;
+					   }
 					} else {
 						rs.Toast(data.msg);
 					}
@@ -182,7 +211,7 @@
 			},
 			onConfirm1(res, type) {
 				this.time = res.result;
-				this.requestItemList()
+				// this.requestItemList()
 			},
 			requestItemCate() {
 				let that = this;
@@ -219,7 +248,7 @@
 				var data = {
 					appid: appid,
 					timeStamp: timeStamp,
-					supplier_id: that.supplier,
+					// supplier_id: that.supplier,
 					created_at: that.time,
 					cate_id: that.cate_id,
 					sign: sign,
@@ -232,7 +261,11 @@
 								price: ''
 							}))
 						}))
-						// console.log(that.itemList);
+						if (res.data.data.list.length == 0) {
+							this.bitmap = false;
+						} else {
+							this.bitmap = true;
+						}
 					} else {
 						rs.Toast(res.data.msg)
 					}
@@ -243,20 +276,32 @@
 		onShow() {
 			this.time = un.formatDate();
 			this.requestItemCate()
-			this.requestItemList()
+			this.requestItemList();
+			// #ifdef H5
+			let that = this;
+			uni.getSystemInfo({
+				success: function(res) {
+					if (res.platform == 'android') {
+						window.onresize = () => {
+							that.showTabar = !that.showTabar;
+						}
+					}
+				}
+			})
+			// #endif
+		},
 		}
-	}
 </script>
 
 <style>
 	.purchase .head {
 		width: 100%;
 		position: fixed;
-		top: 0;
+		/* top: 0; */
 		background: #F5F5F5;
 		z-index: 99;
 	}
-
+.purchase .show_bitmap{padding-top:45%;}
 	.purchase .head .search_box {
 		background: #fff;
 		margin-top: 10rpx;
@@ -380,5 +425,3 @@
 		border-radius: 10rpx;
 	}
 </style>
-
-

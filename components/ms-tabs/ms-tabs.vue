@@ -10,16 +10,16 @@
 					  @click="select(item, index)"
 				>
 					<view class="tab__item-title">
-						<slot name="name" :title="item.name"></slot>
+						<slot name="title" :title="item.title"></slot>
 					</view>
 					<view v-if="!showTitleSlot" class="tab__item-title">
 						{{item.name}}
 					</view>
 				</view>
 			</view>
-			<!-- <view class="tab__line" 
+			<view class="tab__line" 
 				  :style="{background: lineColor, width: lineStyle.width, transform: lineStyle.transform,transitionDuration: lineStyle.transitionDuration}">
-			</view> -->
+			</view>
 		</scroll-view>
 	</view>
 </template>
@@ -35,7 +35,7 @@
 				}
 			},
 			itemColor: String, // tab主色调
-			lineColor: String ,// 下划线主色调
+			lineColor: {type:String,default:'rgb(3, 169, 142)'} ,// 下划线主色调
 			lineAnimated: { // 是否展示下划线动画
 				type: Boolean,
 				default: true
@@ -52,7 +52,7 @@
 		},
 		computed: {
 			showTitleSlot() {
-				return this.$scopedSlots.name
+				return this.$scopedSlots.title
 			}
 		},
 		watch: {
@@ -88,9 +88,9 @@
 				let lineWidth = 0, lineLeft = 0
 				this.getElementData(`#tab_item`, (data)=> {
 					let el = data[this.currentIndex]
-					lineWidth = el.width / 2
+					lineWidth = el.width / 7
 					// lineLeft = el.width * (this.currentIndex + 0.5)  // 此种只能针对每个item长度一致的
-					lineLeft = el.width / 2 + (-data[0].left) + el.left
+					lineLeft = el.width / 2 + (-data[0].left) + el.left+1
 					this.lineStyle = {
 						width: `${lineWidth}px`,
 						transform: `translateX(${lineLeft}px) translateX(-50%)`,

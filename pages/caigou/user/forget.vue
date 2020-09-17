@@ -1,7 +1,7 @@
 <template>
 	<view class="caigou_index">
-		<uni-nav-bar left-icon="back" left-text="" title="修改密码" color="#1A1A1A" @clickLeft="goPage"></uni-nav-bar>
-		<view style="height: 90rpx;background: #F9F9F9;"></view>
+		<uni-nav-bar left-icon="back"  title="修改密码" :status-bar="navBar" color="#1A1A1A" @clickLeft="goPage"></uni-nav-bar>
+		<view style="height: 49px;background: #F9F9F9;"></view>
 		<view class="inp_box">
 			<view class="item">
 				<text>原密码</text>
@@ -42,13 +42,19 @@
 				old_pwd:"",
 				password:"",
 				password_confirmation:"",
+				count:0
 			}
 		},
 		methods: {
 			goPage(){
-				uni.navigateBack({
-					delta:1
-				})
+			// #ifdef H5
+			window.history.back(-1);
+			// #endif 
+			// #ifndef H5
+			uni.navigateBack({
+				delta: 1
+			});
+			// #endif	
 			},
 			// 手机登录
 			submit() {
@@ -70,6 +76,11 @@
 					rs.Toast('两次输入的密码不一致，请重新确认密码');
 					return;
 				}
+				this.count++;
+				if(this.count!=1)return;
+				setTimeout(()=>{
+					this.count=1
+				},1000)
 				let obj = {
 					old_pwd: that.old_pwd,
 					password: that.password,

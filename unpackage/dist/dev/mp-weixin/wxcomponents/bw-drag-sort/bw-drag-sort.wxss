@@ -1,0 +1,61 @@
+
+.drag-sort.data-v-689f9c45 {
+	width: 100%;
+	/* background: palegoldenrod; */
+}
+.drag-sort-item.data-v-689f9c45 {
+	background: white;
+	padding: 4rpx;
+	box-sizing: border-box;
+	/* border:1upx solid #DDDDDD; */
+	cursor: move;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-align-content: center;
+	        align-content: center;
+}
+.active.data-v-689f9c45 {
+	box-shadow: 0 0 40rpx #DDDDDD;
+	-webkit-transform: scale(1.2);
+	        transform: scale(1.2);
+	z-index: 100;
+	-webkit-transition: all 0.1s ease-in 0s;
+	transition: all 0.1s ease-in 0s;
+	color: red
+}
+.item.data-v-689f9c45 {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	position: relative;
+}
+.delItem.data-v-689f9c45 {
+	position: absolute;
+	right: 6rpx;
+	top: 6rpx;
+	display: inline-block;
+	width: 40rpx;
+	height: 40rpx;
+	border-radius: 50%;
+	/* background: #ededed; */
+	color: red;
+	line-height: 30rpx;
+	text-align: center;
+	border: none;
+	font-size: 30rpx;
+	z-index: 99;
+}
+.itemself.data-v-689f9c45 {
+	width: 95%;
+	padding: 0 20rpx;
+	border-bottom: 1px solid #f0f0f0;
+	/* height:100%; */
+}
+.activeId+.drag-sort-item.data-v-689f9c45 {
+	margin-top: 128px;
+}
+

@@ -1,0 +1,29 @@
+
+page{
+	background: #FFFFFF;
+}
+.inp_box{
+	padding: 0 15rpx;
+}
+.inp_box .item{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	padding: 25rpx 0;
+	border-bottom: 1px solid #F0F0F0;
+}
+.inp_box .item text:nth-child(1){
+	width: 160rpx;
+}
+.inp_box .btn{
+	color: #ffffff;
+	background: #03A98E;
+	text-align: center;
+	padding: 15rpx 0;
+	border-radius: 50rpx;
+	margin: 0 80rpx;
+	margin-top: 60rpx;
+}
+
+
+

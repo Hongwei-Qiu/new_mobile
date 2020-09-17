@@ -1,0 +1,82 @@
+
+page {
+		background: white;
+}
+.delivery .top_search .istop .left_border {
+		width: 2px;
+		background: #D6d6d6;
+		height: 30rpx;
+		margin: 2rpx 20rpx;
+}
+.delivery .top_search .istop {
+		color: #03A98E;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+}
+.delivery .top_search input {
+		font-size: 28rpx;
+		width: 380rpx;
+}
+.delivery .top_search {
+		/* padding: 15rpx 0rpx 16rpx; */
+		position: fixed;
+		width: 100%;
+		left: 0;
+		background-color: white;
+}
+.delivery .top_search .search_style {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		height: 64rpx;
+		background: #F5F5F5;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		margin: 14rpx 20rpx;
+		padding: 0 30rpx;
+		border-radius: 40rpx;
+		font-size: 26rpx;
+		-webkit-box-pack: justify;
+		-webkit-justify-content: space-between;
+		        justify-content: space-between;
+}
+.delivery .all_Order {
+		padding: 110rpx 0rpx 120rpx;
+}
+.delivery .all_Order .sign_good {
+
+		padding: 0 20rpx 20rpx;
+		font-size: 28rpx;
+}
+.delivery .all_Order .sign_good .height {
+		margin-top: 10rpx;
+		color: #666
+}
+.delivery .all_Order .sign_good .good_statu {
+		margin-top: 10rpx;
+		font-size: 30rpx;
+		border-bottom: 2rpx solid #F5F5F5;
+		padding-bottom: 10rpx;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-pack: justify;
+		-webkit-justify-content: space-between;
+		        justify-content: space-between;
+}
+.delivery .all_Order .sign_good text:first-child {
+		margin-right: 18rpx;
+}
+.delivery .all_Order .border_bottom {
+		border-bottom: 10rpx solid #F5F5F5;
+}
+.delivery .all_Order .good_statu text:first-child {
+		margin-right: 18rpx;
+}
+.delivery .all_Order .icondianhua1{color:#04AA8E;margin-left:24rpx;}
+

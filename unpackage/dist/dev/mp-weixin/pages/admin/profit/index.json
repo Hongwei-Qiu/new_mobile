@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "my-apphead": "/components/my-apphead/index",
+    "ms-tabs": "/components/ms-tabs/ms-tabs",
+    "tab-bar": "/components/tabbar/admin"
+  }
+}

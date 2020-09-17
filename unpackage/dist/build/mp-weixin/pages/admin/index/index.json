@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "my-apphead": "/components/my-apphead/index",
+    "tab-bar": "/components/tabbar/admin",
+    "uni-ec-canvas": "/js_sdk/yanhao-echarts-for-wx/uni-ec-canvas/uni-ec-canvas"
+  }
+}

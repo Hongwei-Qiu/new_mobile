@@ -1,0 +1,43 @@
+
+.list_box .top_box {
+	margin-bottom: 15rpx;
+	background: #ffffff;
+	padding: 0rpx 20rpx;
+	padding-bottom: 10rpx;
+}
+.list_box .top_box .title {
+	padding: 15rpx 0;
+	border-bottom: 1px solid #F0F0F0;
+}
+.list_box .top_box .content {
+	padding: 10rpx 0;
+	font-size: 26rpx;
+	font-weight: 400;
+}
+.list_box .item {
+	margin-bottom: 15rpx;
+	background: #ffffff;
+	padding: 0rpx 20rpx;
+	padding-bottom: 10rpx;
+}
+.list_box .item .name {
+	padding: 15rpx 0;
+	border-bottom: 1px solid #F0F0F0;
+}
+.list_box .item .txt {
+	padding: 10rpx 0;
+	font-size: 26rpx;
+	font-weight: 400;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+}
+.list_box .item .txt .right{
+	text-align: end;
+	width:500rpx;
+}
+
+

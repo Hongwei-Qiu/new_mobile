@@ -1,5 +1,6 @@
 <template>
 	<view class="caigou_index">
+		<my-apphead></my-apphead>
 		<view class="user">
 			<view class="top flex flex_align_center">
 				<view class="logo">
@@ -86,10 +87,10 @@
 					var that = this;
 					uni.showModal({
 						content: '是否退出登录？',
-						cancelText: "我再想想",
+						cancelText: "取消",
 						cancelColor: "#999",
 						confirmText: "确认",
-						confirmColor: "#DEC17C",
+					confirmColor: '#03A98E',
 						success: function(res) {
 							if (res.confirm) {
 								var timeStamp = Math.round(new Date().getTime() / 1000);
@@ -164,10 +165,10 @@
 				var that = this;
 				uni.showModal({
 					content: this.is_bind == 1 ? '是否微信改绑' : '是否绑定微信',
-					cancelText: "我再想想",
+					cancelText: "取消",
 					cancelColor: "#999",
 					confirmText: "确认",
-					confirmColor: "#DEC17C",
+						confirmColor: '#03A98E',
 					success: function(res) {
 						if (res.confirm) {
 							uni.setStorageSync('isWeixin', true)
@@ -256,9 +257,10 @@
 						setTimeout(function() {
 							uni.clearStorage({
 								success: function(reg) {
-									uni.navigateTo({
-										url: '/pages/account/login'
-									});
+										window.location.href=app.rootUrl+'/Mobile#/pages/caigou/user/user'
+									// uni.navigateTo({
+									// 	url: '/pages/account/login'
+									// });
 								}
 							})
 						}, 1000);

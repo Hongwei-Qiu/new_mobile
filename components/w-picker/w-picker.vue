@@ -22,60 +22,11 @@
 				@touchend="touchEnd">
 			</date-picker>
 			
-			<range-picker
-				v-if="mode=='range'" 
-				class="w-picker-wrapper"
-				:startYear="startYear"
-				:endYear="endYear"
-				:value="value"
-				:item-height="itemHeight"
-				:current="current"
-				@change="handlerChange"
-				@touchstart="touchStart" 
-				@touchend="touchEnd">
-			</range-picker>
+		
 			
-			<half-picker
-				v-if="mode=='half'" 
-				class="w-picker-wrapper"
-				:startYear="startYear"
-				:endYear="endYear"
-				:value="value"
-				:item-height="itemHeight"
-				:current="current"
-				:disabled-after="disabledAfter"
-				@change="handlerChange"
-				@touchstart="touchStart" 
-				@touchend="touchEnd">
-			</half-picker>
 			
-			<shortterm-picker
-				v-if="mode=='shortTerm'" 
-				class="w-picker-wrapper"
-				:startYear="startYear"
-				:endYear="endYear"
-				:value="value"
-				:item-height="itemHeight"
-				:current="current"
-				expand="60"
-				:disabled-after="disabledAfter"
-				@change="handlerChange"
-				@touchstart="touchStart" 
-				@touchend="touchEnd">
-			</shortterm-picker>
 			
-			<time-picker
-				v-if="mode=='time'"
-				class="w-picker-wrapper"
-				:value="value"
-				:item-height="itemHeight"
-				:current="current"
-				:disabled-after="disabledAfter"
-				:second="second"
-				@change="handlerChange"
-				@touchstart="touchStart" 
-				@touchend="touchEnd">
-			</time-picker>
+			
 			
 			<selector-picker
 				v-if="mode=='selector'"
@@ -90,55 +41,22 @@
 				@touchend="touchEnd">
 			</selector-picker>
 			
-			<region-picker
-				v-if="mode=='region'"
-				class="w-picker-wrapper"
-				:value="value"
-				:hide-area="hideArea"
-				:default-type="defaultType"
-				:item-height="itemHeight"
-				@change="handlerChange"
-				@touchstart="touchStart" 
-				@touchend="touchEnd">
-			</region-picker>
 			
-			<linkage-picker
-				v-if="mode=='linkage'"
-				class="w-picker-wrapper"
-				:value="value"
-				:options="options"
-				:level="level"
-				:default-type="defaultType"
-				:default-props="defaultProps"
-				:item-height="itemHeight"
-				@change="handlerChange"
-				@touchstart="touchStart" 
-				@touchend="touchEnd">
-			</linkage-picker>
+		
 		</view>
 	</view>
 </template>
 
 <script>
 	import datePicker from "./date-picker.vue"
-	import rangePicker from "./range-picker.vue"
-	import halfPicker from "./half-picker.vue"
-	import shorttermPicker from "./shortterm-picker.vue"
-	import timePicker from "./time-picker.vue"
+	
 	import selectorPicker from "./selector-picker.vue"
-	import regionPicker from "./region-picker.vue"
-	import linkagePicker from "./linkage-picker.vue"
+	
 	export default {
 		name:"w-picker",
 		components:{
 			datePicker,
-			rangePicker,
-			halfPicker,
-			timePicker,
 			selectorPicker,
-			shorttermPicker,
-			regionPicker,
-			linkagePicker
 		},
 		props:{
 			mode:{
@@ -155,7 +73,8 @@
 			},
 			themeColor:{//确认按钮主题颜色
 				type:String,
-				default:"#f5a200"
+				// default:"#f5a200"
+				default:"rgba(3, 169, 141, 1)"
 			},
 			fields:{//日期颗粒度:year、month、day、hour、minute、second
 				type:String,

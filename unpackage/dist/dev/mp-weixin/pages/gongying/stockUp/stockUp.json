@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "my-apphead": "/components/my-apphead/index",
+    "ms-tabs": "/components/ms-tabs/ms-tabs",
+    "my-bitmap": "/components/my-bitmap/index",
+    "w-picker": "/components/w-picker/w-picker",
+    "tabar": "/components/tabbar/gongying"
+  }
+}

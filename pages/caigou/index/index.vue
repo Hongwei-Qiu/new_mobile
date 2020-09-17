@@ -2,6 +2,7 @@
 	<view class="caigou_index">
 		<view class="index">
 			<view class="top flex_column">
+				<image src="../../../static/img/caigou_index.png" class="index_top_image"></image>
 				<view class="pop">
 					<cmd-progress type="circle" :percent="buyerIndex.buyerNum" :width="150" :stroke-width="7" stroke-color="#EBF8FB"></cmd-progress>
 				</view>
@@ -128,7 +129,7 @@
 <style>
 	.caigou_index .index .top {
 		height: 400rpx;
-		background: url('../../../static/img/caigou_index.png') no-repeat;
+		/* background: url(../../../static/img/caigou_index.png) no-repeat; */
 		background-size: 100% 100%;
 		text-align: center;
 		padding-top: 100rpx;

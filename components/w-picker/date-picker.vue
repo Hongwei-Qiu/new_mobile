@@ -95,6 +95,10 @@
 			};
 		},
 		props:{
+			showDate:{
+				type:String,
+				default:""
+			},
 			itemHeight:{
 				type:String,
 				default:"44px"
@@ -255,6 +259,7 @@
 				}
 				for(let day=1;day<=daysLen;day++){
 					days.push(this.formatNum(day));
+					
 				}
 				for(let hour=0;hour<hoursLen;hour++){
 					hours.push(this.formatNum(hour));
@@ -299,6 +304,7 @@
 			},
 			getDefaultDate(){
 				let value=this.value;
+				
 				let reg=/-/g;
 				let defaultDate=value?new Date(value.replace(reg,"/")):new Date();
 				let defaultYear=defaultDate.getFullYear();
@@ -333,6 +339,7 @@
 				}else{
 					endDate=new Date();
 				}
+			
 				return endDate;
 			},
 			getDval(){
@@ -342,7 +349,8 @@
 				let aDate=new Date();
 				let year=this.formatNum(aDate.getFullYear());
 				let month=this.formatNum(aDate.getMonth()+1);
-				let day=this.formatNum(aDate.getDate());
+				let day=this.formatNum(aDate.getDate())-1;
+				
 				let hour=this.formatNum(aDate.getHours());
 				let minute=this.formatNum(aDate.getMinutes());
 				let second=this.formatNum(aDate.getSeconds());
@@ -390,6 +398,7 @@
 				let defaultMonth=defaultDate.defaultMonth;
 				let defaultDay=defaultDate.defaultDay;
 				let defaultDays=defaultDate.defaultDays;
+			
 				let curFlag=this.current;
 				let disabledAfter=this.disabledAfter;
 				let curDate=this.getCurrenDate();
@@ -415,6 +424,11 @@
 				years=dateData.years;
 				months=dateData.months;
 				days=dateData.days;
+				
+								   if(disabledAfter){
+									   dateData.days.splice(days.length-1,1);
+									   days=dateData.days;
+								   }
 				hours=dateData.hours;
 				minutes=dateData.minutes;
 				seconds=dateData.seconds;
@@ -455,6 +469,7 @@
 						}
 						break;
 					case "day":
+				
 						pickVal=disabledAfter?[
 							dVal[0]&&years.indexOf(dVal[0])!=-1?years.indexOf(dVal[0]):0,
 							dVal[1]&&months.indexOf(dVal[1])!=-1?months.indexOf(dVal[1]):0,
@@ -468,7 +483,10 @@
 							dVal[1]&&months.indexOf(dVal[1])!=-1?months.indexOf(dVal[1]):0,
 							dVal[2]&&days.indexOf(dVal[2])!=-1?days.indexOf(dVal[2]):0
 						]);
+						days.length-1;
+						
 						range={years,months,days};
+						
 						year=dVal[0]?dVal[0]:years[0];
 						month=dVal[1]?dVal[1]:months[0];
 						day=dVal[2]?dVal[2]:days[0];
@@ -638,6 +656,17 @@
 						if(this.disabledAfter){
 							months=resetData.months;
 							days=resetData.days;
+							let curDate=this.getCurrenDate();
+							let curYear=curDate.curYear;
+							let curMonth=curDate.curMonth;
+							// console.log(curYear)
+							if(curYear==year&&curMonth==month){
+									days.splice(days.length-1,1);
+							}
+							// console.log(month)
+							// console.log(year)
+					
+						// console.log(days);
 						}else{
 							if(leapYear||(month!=this.checkObj.month)||month==2){
 								days=resetData.days;

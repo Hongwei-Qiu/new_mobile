@@ -2,6 +2,7 @@
 	<view class="caigou_index">
 		<view class="index">
 			<view class="top flex_column">
+					<image src="../../../static/img/caigou_index.png" class="index_top_image"></image>
 				<view class="pop">
 					<cmd-progress type="circle" :percent="buyerIndex.buyerNum" :width="150" :stroke-width="7" stroke-color="#EBF8FB"></cmd-progress>
 				</view>
@@ -26,7 +27,7 @@
 							{{nowTimes}}
 						</view>
 					</view>
-					<view class="right">{{buyerIndex.finsh}}</view>
+					<view class="right">{{buyerIndex.stock}}</view>
 				</view>
 				<view class="item flex flex_align_center flex_between">
 					<view class="left">
@@ -37,7 +38,7 @@
 							{{nowTimes}}
 						</view>
 					</view>
-					<view class="right">{{buyerIndex.unfinsh}}</view>
+					<view class="right">{{buyerIndex.distribution}}</view>
 				</view>
 				<view class="item flex flex_align_center flex_between">
 					<view class="left">
@@ -59,11 +60,12 @@
 							{{nowTimes}}
 						</view>
 					</view>
-					<view class="right">{{buyerIndex.cateCount}}</view>
+					<view class="right">{{buyerIndex.beforeUnfinsh}}</view>
 				</view>
 			</view>
 
 		</view>
+		<view style="height:110rpx;"></view>
 		<tabar :tabarIndex="tabNum"></tabar>
 	</view>
 </template>
@@ -71,6 +73,7 @@
 <script>
 	import md5 from '../../../static/js/md5.js';
 	import rs from '../../../static/js/request.js';
+	import un from '../../../static/js/uni.js';
 	import tabar from "../../../components/tabbar/siji.vue"
 	import cmdProgress from "@/components/cmd-progress/cmd-progress.vue"
 	const app = getApp().globalData;
@@ -94,18 +97,6 @@
 			}
 		},
 		methods: {
-			timeFormate() {
-				let timeStamp = new Date()
-				let year = new Date(timeStamp).getFullYear()
-				let month = new Date(timeStamp).getMonth() + 1 < 10 ? '0' + (new Date(timeStamp).getMonth() + 1) : new Date(
-					timeStamp).getMonth() + 1
-				let date = new Date(timeStamp).getDate() < 10 ? '0' + new Date(timeStamp).getDate() : new Date(timeStamp).getDate()
-				let hh = new Date(timeStamp).getHours() < 10 ? '0' + new Date(timeStamp).getHours() : new Date(timeStamp).getHours()
-				let mm = new Date(timeStamp).getMinutes() < 10 ? '0' + new Date(timeStamp).getMinutes() : new Date(timeStamp).getMinutes()
-				// let ss =new Date(timeStamp).getSeconds() < 10? "0" + new Date(timeStamp).getSeconds(): new Date(timeStamp).getSeconds();
-				// return year + "年" + month + "月" + date +"日"+" "+hh+":"+mm ;
-				this.nowTimes = year + '-' + month + '-' + date
-			},
 			requestIndex() {
 				let that = this;
 				var timeStamp = Math.round(new Date().getTime() / 1000);
@@ -130,7 +121,7 @@
 
 		},
 		onLoad() {
-			this.timeFormate()
+			this.nowTimes =un.formatDate();
 			this.requestIndex()
 		}
 	}

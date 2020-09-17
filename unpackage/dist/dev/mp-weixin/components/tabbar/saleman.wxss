@@ -1,0 +1,33 @@
+
+.color {
+	color: #03A98D;
+}
+.incolor {
+	color: #D5D5D5;
+}
+.tabbar {
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	background: #FFFEFF;
+}
+.tabbar .list {
+	width: 100%;
+	font-size: 28rpx;
+	text-align: center;
+	padding: 10rpx 0;
+}
+.tabbar .list .item {
+	width: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-justify-content: space-around;
+	        justify-content: space-around;
+}
+.tabbar .list .item .iconfont {
+	font-size: 40rpx;
+	margin-bottom: 5rpx;
+}
+

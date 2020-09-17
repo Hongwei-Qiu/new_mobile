@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "my-apphead": "/components/my-apphead/index",
+    "my-loading": "/components/my-loading/index",
+    "my-bitmap": "/components/my-bitmap/index",
+    "tabar": "/components/tabbar/siji"
+  }
+}

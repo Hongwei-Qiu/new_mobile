@@ -5,8 +5,8 @@
 			<uni-status-bar v-if="statusBar" />
 			<view :style="{ color: color,backgroundColor: backgroundColor }" class="uni-navbar__header uni-navbar__content_view">
 				<view @tap="onClickLeft" class="uni-navbar__header-btns uni-navbar__header-btns-left uni-navbar__content_view">
-					<view class="uni-navbar__content_view" v-if="leftIcon.length">
-						<uni-icons :color="color" :type="leftIcon" size="24" />
+					<view  class="uni-navbar__content_view" v-if="leftIcon.length">
+						<uni-icons  :color="color" :type="leftIcon" size="24" />
 					</view>
 					<view :class="{ 'uni-navbar-btn-icon-left': !leftIcon.length }" class="uni-navbar-btn-text uni-navbar__content_view"
 					 v-if="leftText.length">
@@ -27,7 +27,7 @@
 					</view>
 					<!-- 优先显示图标 -->
 					<view class="uni-navbar-btn-text uni-navbar__content_view" v-if="rightText.length && !rightIcon.length">
-						<text class="uni-nav-bar-right-text">{{ rightText }}</text>
+						<text class="uni-nav-bar-right-text"  :style="{'color':rightColor}">{{ rightText }}</text>
 					</view>
 					<slot name="right" />
 				</view>
@@ -76,6 +76,10 @@
 				default: false
 			},
 			color: {
+				type: String,
+				default: "#000000"
+			},
+			rightColor:{
 				type: String,
 				default: "#000000"
 			},
@@ -128,6 +132,7 @@
 
 	.uni-navbar {
 		width: 750rpx;
+	
 	}
 
 	.uni-navbar__content {

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "my-apphead": "/components/my-apphead/index",
+    "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar"
+  }
+}

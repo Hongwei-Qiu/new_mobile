@@ -1,0 +1,308 @@
+
+page {
+		background-color: #F9F9F9;
+}
+.purchaseNote .head {
+		position: fixed;
+		width: 100%;
+
+		left: 0;
+		background: #F9F9F9;
+}
+.purchaseNote .tab_box {
+		padding: 0 30rpx;
+		color: #666666;
+		font-family: PingFang SC;
+		margin-bottom: 20rpx;
+}
+.purchaseNote .tab_box .tab {
+		height: 60rpx;
+		line-height: 60rpx;
+		padding-bottom: 10rx;
+		text-align: center;
+}
+.purchaseNote .tab_box .tab.active {
+		color: #03A98E;
+}
+.purchaseNote .tab_box .tab .xian {
+		width: 38rpx;
+		height: 5rpx;
+		background: rgba(3, 169, 142, 1);
+		border-radius: 10rpx;
+		position: relative;
+		left: 50%;
+		margin-left: -19rpx;
+}
+.purchaseNote .inp_box {
+		background-color: #FFFFFF;
+		padding: 15rpx 0;
+		position: fixed;width: 100%;
+		border-bottom: 10rpx solid #F9F9F9;
+}
+.purchaseNote .inp_box .time {
+		background-color: #F5F5F5;
+		padding: 15rpx 20rpx;
+		border-radius: 50rpx 0 0 50rpx;
+}
+.purchaseNote .inp_box .time input {
+		width: 350rpx;
+		margin-left: 20rpx;
+}
+.purchaseNote  .enquiry_item{margin-top:100rpx;}
+.purchaseNote .inp_box .time .time_inp {
+		width: 550rpx;
+}
+.purchaseNote .inp_box .btn {
+		background-color: #03A98E;
+		padding: 16rpx 30rpx;
+		border-radius: 0 50rpx 50rpx 0;
+		color: #FFFFFF;
+}
+.purchaseNote .inp_box .right {
+		font-size: 28rpx;
+}
+.purchaseNote .inp_box .right .text {
+		color: #666666;
+}
+.purchaseNote .list_box {
+		padding-top: 78rpx;
+		padding-bottom: 110rpx;
+}
+.purchaseNote .list_box .record_item {
+		padding: 0 20rpx 0 20rpx;
+		background: #ffffff;
+}
+.purchaseNote .list_box .record_item .item {
+		background: #ffffff;
+		padding: 10rpx 0;
+		font-size: 28rpx;
+}
+.purchaseNote .list_box .record_item .record_title {
+		background: #ffffff;
+		padding: 15rpx 0;
+		border-bottom: 1px solid #F0F0F0;
+}
+.purchaseNote .enquiry_item .item {
+		padding: 10rpx 20rpx;
+		background: #FFFFFF;
+		border-bottom: 1px solid #F0F0F0;
+		/* padding-bottom: 20rpx; */
+}
+.purchaseNote .enquiry_item .item .title {
+		padding: 20rpx 0;
+		background: #FFFFFF;
+}
+.purchaseNote .enquiry_item .item .title .right .iconfont {
+		font-size: 40rpx;
+}
+.purchaseNote .enquiry_item .item .title .left .badge {
+		display: inline-block;
+		width: 30rpx;
+		height: 30rpx;
+		color: #FFFFFF;
+		background: #03A98E;
+		font-size: 15rpx;
+		text-align: center;
+		line-height: 30rpx;
+		border-radius: 50%;
+		margin-right: 10rpx;
+}
+.purchaseNote .enquiry_item .item .title .left .iconfont {
+		font-size: 26rpx;
+		color: #666666;
+		margin-right: 10rpx;
+}
+.purchaseNote .enquiry_item .item .content {
+		padding-left: 30rpx;
+}
+.purchaseNote .enquiry_item .item .content .txt {
+		font-size: 26rpx;
+		margin: 0 0 15rpx 45rpx;
+}
+.enquiry_bottom {
+		position: fixed;
+		width: 100%;
+		left: 0;
+		bottom: 100rpx;
+		z-index: 99;
+		background: #FFFFFF;
+		
+		border-bottom: 1rpx solid #F0F0F0;
+}
+.enquiry_bottom .btm {
+		padding: 15rpx 0;
+		color: #666666;
+		font-size: 28rpx;
+}
+.enquiry_bottom .btm .iconfont {
+		font-size: 36rpx;
+		color: #666666;
+}
+.enquiry_bottom .btm view {
+		padding: 10rpx 80rpx;
+}
+.enquiry_bottom .btm view:nth-child(1) {
+		border-right: 1px solid #F0F0F0;
+}
+.enquiry_bottom .btm view:nth-child(2) {
+		border-right: 1px solid #F0F0F0;
+}
+.caigou_index_height {
+		background: white;
+		height: 100vh;
+}
+.query_price {
+		background: white;
+		height: 100vh;
+}
+.query_price .bar_title {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+	
+		height: 47px;
+		line-height: 47px;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+}
+.query_price .search_style {
+		width: 80%;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		background: #F6F6F6;
+		border-radius: 20px;
+		padding: 0 10px;
+		height: 32px;
+		margin-left: 1%;
+}
+.search_content {
+		padding: 20rpx;
+}
+.search_content>view {
+		height: 60rpx;
+		line-height: 60rpx;
+		font-size: 26rpx;
+		color: #343434;
+}
+.bitmap_style {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: column;
+		        flex-direction: column;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		        justify-content: center;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+}
+.bitmap_style image {
+		width: 44%;
+}
+.bitmap_style text {
+		margin-left: 5%;
+		color: gray;
+}
+.enquiry_item .show_bitmap {
+		padding-top: 20%;
+}
+.enquiry_bottom .find_good {
+		padding: 20rpx;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-pack: justify;
+		-webkit-justify-content: space-between;
+		        justify-content: space-between;
+}
+.enquiry_bottom .find_good input {
+		border: 1px solid #d9d9d9 !important;
+		margin-right: 20rpx;
+		padding-left: 10rpx;
+		height: 60rpx;
+}
+.purchaseNote .mask_info {
+		padding: 12px;
+		position: fixed;
+		width: 75%;
+		top: 80rpx;
+		left: 0;
+		right: 0;
+		margin: auto;
+		z-index: 999;
+		border-radius: 4rpx;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: column;
+		        flex-direction: column;
+}
+.purchaseNote .mask_info .left {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		-webkit-box-pack: justify;
+		-webkit-justify-content: space-between;
+		        justify-content: space-between;
+		width: 100%;
+		height: 80rpx;
+}
+.purchaseNote .mask_info .left .iconcha {
+		font-size: 50rpx;
+		color: #666;
+}
+.purchaseNote .mask_info .left .btn {
+		height: 80rpx;
+		padding: 0 24rpx;
+		line-height: 80rpx;
+}
+.purchaseNote .mask_info .left .time {
+		height: 80rpx;
+		padding: 0 20rpx;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+}
+.purchaseNote .mask_info .left .time input {
+		width: 350rpx;
+}
+.purchaseNote .mask_info .copy_quiry {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-pack: justify;
+		-webkit-justify-content: space-between;
+		        justify-content: space-between;
+		margin-top: 20rpx;
+}
+.purchaseNote .mask_info .copy_quiry .iconfont {
+		font-size: 40rpx;
+		height: 21px;
+		margin-right: 20rpx;
+}
+.purchaseNote .mask_info .all_copy {
+		height: 57vh;
+		overflow-y: scroll;
+}
+.purchaseNote .mask_info .batch_selects {
+		background: #03A98E;
+		color: white;
+		height: 80rpx;
+		line-height: 80rpx;
+		text-align: center;
+		border-radius: 40rpx;
+}
+

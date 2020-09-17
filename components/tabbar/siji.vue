@@ -23,7 +23,7 @@
 						url: '/pages/siji/index/index'
 					},
 					{
-						icon: 'iconcart',
+						icon: 'icon-_peisongshang',
 						name: '配送',
 						url: '/pages/siji/delivery/delivery'
 					},
@@ -33,8 +33,8 @@
 						url: '/pages/siji/order/order'
 					},
 					{
-						icon: 'iconxunjia',
-						name: '路线',
+						icon: 'icongongjiaoxianlu',
+						name: '线路',
 						url: '/pages/siji/path/path'
 					},
 					{

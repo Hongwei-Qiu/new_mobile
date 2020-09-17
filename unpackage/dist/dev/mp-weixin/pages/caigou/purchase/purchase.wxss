@@ -1,0 +1,112 @@
+
+.purchase .head {
+	width: 100%;
+	position: fixed;
+	/* top: 0; */
+	background: #F5F5F5;
+	z-index: 99;
+}
+.purchase .head .search_box {
+	background: #fff;
+	margin-top: 10rpx;
+	padding: 15rpx 20rpx;
+	font-size: 28rpx;
+	color: #333333;
+}
+.purchase .head .search_box .left {
+	background: #F5F5F5;
+	padding: 15rpx 0;
+	border-radius: 60rpx 0 0 60rpx;
+}
+.purchase .head .search_box .left {
+	background: #F5F5F5;
+	padding: 15rpx 0;
+	border-radius: 60rpx 0 0 60rpx;
+}
+.purchase .head .search_box .zd input {
+	width: 170rpx;
+	font-size: 28rpx;
+	margin-left: 30rpx;
+	margin-right: 10rpx;
+}
+.purchase .head .search_box .zd .zd_txt {
+	color: #03A98E;
+	margin-right: 30rpx;
+}
+.purchase .head .search_box .time {
+	text-align: center;
+	padding: 0 40rpx;
+	border-left: 1px solid #666666;
+}
+.purchase .head .search_box .right {
+	background: #03A98E;
+	color: #fff;
+	padding: 12rpx;
+	padding-right: 25rpx;
+	border-radius: 0 60rpx 60rpx 0;
+}
+.purchase .head .search_box .right .iconfont {
+	margin-left: 10rpx;
+	font-size: 42rpx;
+}
+.purchase .list_box {
+	padding-top: 205rpx;
+}
+.purchase .list_box .item {
+	background: #ffffff;
+	padding: 15rpx 20rpx;
+	color: #333333;
+	margin-bottom: 15rpx;
+}
+.purchase .list_box .item .title {
+	padding-bottom: 15rpx;
+	border-bottom: 1px solid #F0F0F0;
+	font-size: 32rpx;
+	font-size: 500;
+}
+.purchase .list_box .item .body {
+	font-weight: 400;
+	font-size: 28rpx;
+	margin-top: 15rpx;
+}
+.purchase .list_box .item .body .detail {
+	padding-bottom: 15rpx;
+}
+.purchase .list_box .item .body .detail .right {
+	/* width: 450rpx; */
+	text-align: end;
+}
+.purchase .list_box .item .body .detail:nth-child(3) .right {
+	max-width: 450rpx;
+	text-align: start;
+}
+.purchase .list_box .item .body .unfold {
+	text-align: end;
+	padding-bottom: 20rpx;
+	color: #ADADAD;
+}
+.purchase .list_box .item .inp_btn {
+	margin-top: 20rpx;
+}
+.purchase .list_box .item .inp input {
+	width: 150rpx;
+	padding: 10rpx;
+	border-radius: 10rpx;
+	border: 1px solid #D6D6D6 !important;
+	margin-right: 20rpx;
+}
+.purchase .list_box .item .inp input::-webkit-input-placeholder {
+	color: #D6D6D6;
+}
+.purchase .list_box .item .btn {
+	width: 140rpx;
+	height: 60rpx;
+	line-height: 60rpx;
+	font-size: 28rpx;
+	background: #03A98E;
+	color: #ffffff;
+	text-align: center;
+	border-radius: 10rpx;
+}
+.tabBlock .tab__line{display: none!important;}
+
